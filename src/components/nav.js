@@ -1,8 +1,18 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom'
+import { Link } from 'react-router-dom';
+import { userSignIn, userSignOut } from '../actions';
+import { connect } from 'react-redux';
 
 class Nav extends Component {
+   renderLinks() {
+      const { auth, signIn, signOut } = this.props;
+      if (auth) {
+         return <button onClick={signOut} className="btn red">Sign Out</button>
+      }
+      return <button onClick={signIn} className="btn black">Sign In</button>
+   }
    render() {
+      console.log(this.props.auth);
       const navStyle = {
          padding: '0 8px'
       }
@@ -27,7 +37,7 @@ class Nav extends Component {
                      <Link to="/quotes">Quotes</Link>
                   </li>
                   <li>
-                     <Link to="/sign-in">Sign In</Link>
+                     {this.renderLinks()}
                   </li>
                   <li>
                      <Link to="/sign-up">Sign Up</Link>
@@ -39,4 +49,13 @@ class Nav extends Component {
    }
 }
 
-export default Nav;
+function mapStateToProps(state) {
+   return {
+      auth: state.user.auth
+   }
+}
+
+export default connect(mapStateToProps, {
+   signIn: userSignIn,
+   signOut: userSignOut
+})(Nav)

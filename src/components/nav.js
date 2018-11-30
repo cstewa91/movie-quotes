@@ -33,7 +33,6 @@ class Nav extends Component {
       )
    }
    render() {
-      console.log(this.props.auth);
       const navStyle = {
          padding: '0 8px'
       }
@@ -51,9 +50,7 @@ class Nav extends Component {
                   <li>
                      <Link to="/public-list">Public List</Link>
                   </li>
-                  <li>
                      {this.renderLinks()}
-                  </li>
                </ul>
             </div>
          </nav>
